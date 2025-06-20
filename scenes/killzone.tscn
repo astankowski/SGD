@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://bs3xl8vnwb2h5"]
+
+[ext_resource type="Script" uid="uid://crblbmsmm3p70" path="res://scripts/killzone.gd" id="1_xlapc"]
+[ext_resource type="AudioStream" uid="uid://bvodvhojvwj0s" path="res://assets/fall_sfx.mp3" id="2_kl8fp"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_xlapc"]
+distance = -12.9998
+
+[node name="Killzone" type="Area2D"]
+collision_mask = 2
+script = ExtResource("1_xlapc")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.1
+one_shot = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("WorldBoundaryShape2D_xlapc")
+
+[node name="death_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_kl8fp")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
